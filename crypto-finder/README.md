@@ -125,7 +125,7 @@ Full-system emulation with FirmAE
 .
 
 Web Dashboard for visualization of analysis results.
-
+```text
 ## 📂 Repository Structure
 crypto-finder/
 
@@ -303,7 +303,7 @@ crypto-finder/
 ├─ .dockerignore
 ├─ LICENSE
 ├─ CONTRIBUTING.md
-
+```
 #🤝 Contact
 
 Project – Crypto Finder
