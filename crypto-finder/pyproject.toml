@@ -1,0 +1,56 @@
+# Hinglish: Project ki main configuration file. Yahan hum build system, project details, aur saari dependencies define karte hain.
+
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "crypto_finder"
+version = "0.1.0"
+description = "An AI/ML framework to identify cryptographic primitives in firmware."
+readme = "README.md"
+requires-python = ">=3.9"
+
+# --- Core Dependencies (Application ko chalane ke liye) ---
+dependencies = [
+    # Core & CLI
+    "typer[all]",      # Modern CLI applications ke liye.
+    "pydantic",        # Data validation aur settings management ke liye
+    "pydantic-settings",# Settings management ke liye.
+    "loguru",          # Behtar aur simple logging ke liye.
+
+    # Analysis Tools
+    "ghidra_bridge",   # Ghidra se communicate karne ke liye.
+    "capstone",        # Fast disassembly ke liye.
+    "yara-python",     # YARA rules match karne ke liye.
+    "angr",            # Symbolic execution ke liye.
+    "unicorn",         # CPU emulation ke liye.
+
+    # Database
+    "sqlalchemy",      # Database interaction (ORM) ke liye.
+    "alembic",         # Database migrations ke liye.
+
+    # API & Reporting
+    "fastapi",         # High-performance API banane ke liye.
+    "uvicorn[standard]", # API server run karne ke liye.
+    "jinja2",          # HTML reports generate karne ke liye.
+
+    # Machine Learning
+    "torch",
+    "scikit-learn",
+    "pandas",
+    "unicorn"
+]
+
+# --- Development Dependencies (Development ke time kaam aane wali) ---
+[project.optional-dependencies]
+dev = [
+    "pytest",          # Testing framework.
+    "black",           # Code formatter.
+    "ruff",            # Extremely fast linter.
+    "mypy",            # Static type checking ke liye.
+]
+
+# --- CLI Entry Points (Command-line tools define karne ke liye) ---
+[project.scripts]
+crypto-finder = "crypto_finder.main:app"

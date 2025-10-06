@@ -1,0 +1,15 @@
+{
+  "description": "Yeh file common cryptographic constants ko JSON format me store karti hai.",
+  "algorithms": {
+    "MD5_IV": [
+      {
+        "name": "Initial Value A",
+        "value": "67452301"
+      },
+      {
+        "name": "Initial Value B",
+        "value": "efcdab89"
+      }
+    ]
+  }
+}

@@ -1,0 +1,39 @@
+# Hinglish: Yeh API ke liye ek optimized, multi-stage Dockerfile hai.
+# Isse final image ka size chota aur zyada secure hota hai.
+
+# --- Stage 1: Build Stage ---
+# Yahan hum dependencies install karte hain.
+FROM python:3.10-slim AS builder
+
+WORKDIR /usr/src/app
+
+# Virtual environment create karo
+ENV VIRTUAL_ENV=/opt/venv
+RUN python3 -m venv $VIRTUAL_ENV
+ENV PATH="$VIRTUAL_ENV/bin:$PATH"
+
+# Build dependencies install karo
+RUN pip install --upgrade pip
+COPY pyproject.toml .
+RUN pip install ".[dev]"
+
+# --- Stage 2: Final Stage ---
+# Yahan hum sirf zaroori cheezein copy karte hain.
+FROM python:3.10-slim
+
+WORKDIR /app
+
+# Builder stage se sirf virtual environment copy karo.
+COPY --from=builder /opt/venv /opt/venv
+
+# Path set karo taaki venv ke commands chalein
+ENV PATH="/opt/venv/bin:$PATH"
+
+# Application code copy karo
+COPY src/ /app/src
+
+# Port expose karo
+EXPOSE 8000
+
+# API server run karo
+CMD ["uvicorn", "crypto_finder.api.main:app", "--host", "0.0.0.0", "--port", "8000"]
